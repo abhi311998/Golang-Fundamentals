@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
+    <title>mySQL WebClient</title>
+
+</head>
+<body onload="fetchDashboardData()">
+    <nav>
+        <div class="menu">
+        <div class="logo">
+            <a href="#">mySQL WebClient</a>
+        </div>
+        <ul>
+                <li><a href="#Home">Home</a></li>
+                <li><a href="#Services">Services</a></li>
+                <li><a href="#Feedback">Feedback</a></li>
+        </ul>
+        </div>
+    </nav>
+
+    <div class="main">
+        <section id="Home">
+            <div class="card">
+                <div class="container">
+                    <div class="home inner">
+                        <ul class="nav-links" id="test" onclick="handleHomeNav()">
+                            <li><a href="#" value="111">Dashboard</a></li>
+                            <li><a href="#" value="222">Bank</a></li>
+                            <li><a href="#" value="333">User</a></li>
+                        </ul>
+                        <div id="home-dashboard-tab" >
+                            <div id="home-dashboard-tab-parent">
+                                <div class="home-dashboard-tab-right">
+                                    <div class="float-child green" style="min-height: 12rem;">
+                                        <div style="min-height: 12rem; background-color: #fff;margin: 2px; border-radius: 5px;">
+                                            <h4>Total transaction amount</h4>
+                                            <div style="padding-top: 1.5rem; font-size: 40px;"><h2 style="color: coral;" id="totalTxnAmnt">0</h2></div>
+                                            <!-- <canvas id="myChart2" style="float:left; max-width:700px"></canvas> -->
+                                        </div>
+                                    </div>    
+                                    <div class="float-child blue" style="min-height: 16rem;">
+                                        <div style="min-height: 7.8rem; background-color: #fff;margin: 2px; margin-top: 4px; border-radius: 5px;">
+                                            <h4>Total transaction amount by top 5 user</h4>
+                                            <div style="padding-top: 0.8rem; font-size: 30px;"><h2 style="color: coral;" id="totalTxnAmnt2">0</h2></div>
+                                            <!-- <canvas id="myChart3" style="float:left; max-width:700px"></canvas> -->
+                                        </div>
+                                        <div style="min-height: 7.8rem; background-color: #fff;margin: 2px; margin-top: 4px; border-radius: 5px;">
+                                            <h4>Total transaction amount by top 5 banks</h4>
+                                            <div style="padding-top: 0.8rem; font-size: 30px;"><h2 style="color: coral;" id="totalTxnAmnt3">0</h2></div>
+                                            <!-- <canvas id="myChart3" style="float:left; max-width:700px"></canvas> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="home-dashboard-tab-left">
+                                    <div style="min-height: 28rem; background-color: #fff; margin: 2px; border-radius: 5px;">
+                                        <h4>About this dashboard</h4>
+                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque iusto impedit dolorum, tenetur accusamus illo delectus velit consectetur eum molestias ipsam quae officia eaque? Sint numquam laudantium voluptatibus expedita nemo.</p>
+                                        <!-- <canvas id="myChart1" style="float:left; max-width:600px"></canvas> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="home-user-tab" hidden>
+                            <!-- <h3>Shares of tranaction based on User</h3> -->
+                            <div id="home-dashboard-tab-parent">
+                                <div class="home-dashboard-tab-right">
+                                    <div class="float-child green" style="min-height: 14rem;">
+                                        <div style="min-height: 14rem; background-color: #fff;margin: 2px; border-radius: 5px;">
+                                            <h5>Top 8 Users</h5>
+                                            <canvas id="myChart2" style="float:left; max-width:700px"></canvas>
+                                        </div>
+                                    </div>    
+                                    <div class="float-child blue" style="min-height: 14rem;">
+                                        <div style="min-height: 14rem; background-color: #fff;margin: 2px; border-radius: 5px;">
+                                            <h5>Bottom 5 Users</h5>
+                                            <canvas id="myChart3" style="float:left; max-width:700px"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="home-dashboard-tab-left">
+                                    <div style="min-height: 28rem; background-color: #fff; margin: 2px; border-radius: 5px;">
+                                        <h3>%age distribution of Users Transaction</h3>
+                                        <div style="padding-top: 30px; padding-left: 25px;">
+                                            <canvas id="myChart1" style="float:left; max-width:600px"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="home-bank-tab" hidden>
+                            <!-- <h3>Shares of tranaction based on Bank</h3>
+                            <div style="display: flex; justify-content: center; padding-top: 80px;">
+                                <div style="width: 100%;">
+                                    <canvas id="myChart1" style="float:left; max-width:700px"></canvas>
+                                </div>
+                                <div style="width: 100%;">
+                                    <canvas id="myChart2" style="float:left; max-width:700px"></canvas>
+                                </div>
+                            </div> -->
+                            <div id="home-dashboard-tab-parent">
+                                <div class="home-dashboard-tab-right">
+                                    <div class="float-child green" style="min-height: 14rem;">
+                                        <div style="min-height: 14rem; background-color: #fff;margin: 2px; border-radius: 5px;">
+                                            <h5>Top 8 Banks</h5>
+                                            <canvas id="bank-chart-2" style="float:left; max-width:700px"></canvas>
+                                        </div>
+                                    </div>    
+                                    <div class="float-child blue" style="min-height: 14rem;">
+                                        <div style="min-height: 14rem; background-color: #fff;margin: 2px; border-radius: 5px;">
+                                            <h5>Bottom 5 Banks</h5>
+                                            <canvas id="bank-chart-3" style="float:left; max-width:700px"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="home-dashboard-tab-left">
+                                    <div style="min-height: 28rem; background-color: #fff; margin: 2px; border-radius: 5px;">
+                                        <h3>%age distribution of Banks Transaction</h3>
+                                        <div style="padding-top: 30px; padding-left: 25px;">
+                                            <canvas id="bank-chart-1" style="float:left; max-width:600px"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="Services">
+            <div class="card">
+                <div class="container">
+                    <ul class="nav-links" id="test2" onclick="handleServicesNav(event)">
+                        <li><a href="javascript:void(0)" value="111">Fetch</a></li>
+                        <li><a href="javascript:void(0)" value="222">Insert</a></li>
+                        <li><a href="javascript:void(0)" value="333">Update</a></li>
+                        <li><a href="javascript:void(0)" value="444">Delete</a></li>
+                        <div style="padding-left: 562px;">
+                            <input type="submit" value="Send" onclick="handleForm(event)"></input>
+                        </div>
+                    </ul>
+                    <div id="services-second-row-div" style="border: 1px solid black; margin: 5px; background-color: #fff; padding: 5px;">
+                        <div id="services-fetch-tab">
+                            <div class="services_parent">
+                                <form action="#" method="post" id="form-fetch">
+                                    <div class="services_left">
+                                        <select placeholder="Select column" name="option-fetch">
+                                            <option value="" selected disabled hidden>Fetch all or Choose here</option>
+                                            <option value="username">UserName</option>
+                                            <option value="bankname">BankName</option>
+                                        </select>
+                                    </div>
+                                    <div class="services_right">
+                                        <input type="text" placeholder="add query param" name="textInput-fetch" style="width: 500px;">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="services-insert-tab" hidden>
+                            <form action="#" method="post" id="form-insert">
+                                <input type="text" placeholder="add json data to insert" name="textInput-insert" style="width: 1070px;">
+                            </form>
+                        </div>
+                        <div id="services-update-tab" hidden>
+                            <form action="#" method="post" id="form-update">
+                                <input type="text" placeholder="add json data to update" name="textInput-update" style="width: 1070px;">
+                            </form>
+                        </div>
+                        <div id="services-delete-tab" hidden>
+                            <div class="services_parent">
+                                <form action="#" method="post" id="form-delete">
+                                    <div class="services_left">
+                                        <select placeholder="Select column" name="option-delete">
+                                            <option value="" selected disabled hidden>Choose here</option>
+                                            <option value="username">UserName</option>
+                                            <option value="bankname">BankName</option>
+                                        </select>
+                                    </div>
+                                    <div class="services_right">
+                                        <input type="text" placeholder="add query param" name="textInput-delete" style="width: 500px;">
+                                    </div>
+                                </form>
+                            </div>
+                              
+                        </div>
+                    </div>
+
+                    <div id="sql-query-result">
+
+                    </div>  
+                </div>
+            </div>
+        </section>
+        <section id="Feedback">
+            <div>
+                <div style="font-family: Arial, Helvetica, sans-serif; height: 100vh; width: 100%; padding-top: 5rem;">
+                    <div class="feedback-container" style="border-radius: 5px; background-color: rgb(80, 255, 226); padding: 20px; height: 600px; border-radius: 10px;">
+                        <div style="text-align: center;">
+                            <h1>Feedback Form</h1>
+                        </div>
+                        <form action="#">
+                            <label for="fname">Name</label>
+                            <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                        
+                            <label for="lname">Email</label>
+                            <input type="email" id="lname" name="lastname" placeholder="Your last name..">
+                        
+                            <label for="country">Rating</label>
+                            <select id="country" name="country">
+                                <option value="" selected disabled hidden>Select your rating</option>
+                                <option value="a">A</option>
+                                <option value="b">B</option>
+                                <option value="c">C</option>
+                                <option value="d">D</option>
+                                <option value="e">E</option>
+                            </select>
+                        
+                            <label for="subject">Feedback</label>
+                            <textarea id="subject" name="subject" placeholder="Write something.." style="height:150px"></textarea>
+                        
+                            <input type="submit" value="Submit" onclick="(e) => {e.preventDefault()}">
+                        </form>
+                    </div>
+                </div>        
+            </div>
+        </section>
+    </div>
+</body>
+</html>

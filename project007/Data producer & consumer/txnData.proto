@@ -1,0 +1,14 @@
+syntax="proto3";
+
+package main;
+
+option go_package = "./;main";
+
+message Transaction {
+    string timeStamp = 1;
+    string userName = 2;
+    string bankName = 3;
+    string upiId = 4;
+    string txnId = 5;
+    int64 txnAmount = 6;
+}
